@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import KW_ONLY, dataclass, field
 from typing import Any
 
-from .parser import Parser, TagNode, TextNode
+from .parser import Parser, RootNode, TagNode, TextNode
 from .term import Color, EscapeSequence
 
 
@@ -12,7 +12,11 @@ class Formatter:
     _: KW_ONLY
     parser: Parser = field(default_factory=Parser)
 
-    def make_sequence(self, node: TagNode) -> EscapeSequence:
+    def make_escape_sequence(
+        self,
+        node: TagNode,
+        parent_seq: EscapeSequence | None,
+    ) -> EscapeSequence:
         # TODO:
         d = {}
         color_names = set(map(str.lower, Color._member_names_))
@@ -37,7 +41,8 @@ class Formatter:
         for k in ["color", "background"]:
             if v := node.attrs.get(k):
                 d[k] = v
-        return EscapeSequence(**d)
+        seq = EscapeSequence(**d)
+        return parent_seq | seq if parent_seq else seq
 
     def escape(self, s: str) -> str:
         """escape start tag"""
@@ -48,15 +53,13 @@ class Formatter:
         node: TagNode,
         esq_seq: EscapeSequence | None = None,
     ) -> str:
-        esq_seq = (
-            self.make_sequence(node)
-            if esq_seq is None
-            else esq_seq | self.make_sequence(node)
-        )
+        assert isinstance(node, TagNode)
+        if not isinstance(node, RootNode):
+            esq_seq = self.make_escape_sequence(node, esq_seq)
         rv = ""
         for child in node.children:
             if isinstance(child, TextNode):
-                rv += esq_seq.apply(child)
+                rv += esq_seq.apply(child) if esq_seq else child
             else:
                 rv += self.format_node(child, esq_seq)
         return rv
