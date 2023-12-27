@@ -34,7 +34,9 @@ Color = EscapeCode(
 assert Color("red") == Color(Color.RED) == Color.RED
 
 TextStyle = EscapeCode(
-    "TextStyle", ["NORMAL", "BOLD", "FAINT", "ITALIC", "UNDERLINE"], start=0
+    "TextStyle",
+    ["NORMAL", "BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK"],
+    start=0,
 )
 
 
