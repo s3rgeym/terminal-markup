@@ -1,5 +1,7 @@
 # terml
 
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/terml)]() [![PyPI - Version](https://img.shields.io/pypi/v/terml)]() [![Total Downloads](https://static.pepy.tech/badge/terml)]()
+
 Terminal Markup Language based on BBCode.
 
 Inspired by [Go:tml](https://github.com/liamg/tml) and [Python:rich](https://github.com/Textualize/rich).
