@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import KW_ONLY, dataclass, field
 from typing import Any
 
-from .ansi_colors import Color, EscapeSequence
 from .parser import Parser, TagNode, TextNode
+from .term import Color, EscapeSequence
 
 
 @dataclass
@@ -68,4 +68,4 @@ class Formatter:
 _formatter = Formatter()
 format = _formatter.format
 escape = _formatter.escape
-del _formatter
+# del _formatter
