@@ -19,7 +19,8 @@ from terml import format
 print(format("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [magenta]Life leads to [i blue underline]Death[/i].[/magenta]"))
 ```
 
-![image](https://gist.github.com/assets/12753171/403be3f4-fdfe-4e70-b3f8-5fa4d72e44bb)
+![image](https://github.com/s3rgeym/terml/assets/12753171/b3681eff-dff3-4964-a6fe-0329a4829156)
+
 
 ## Tags
 
