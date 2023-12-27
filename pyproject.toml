@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "terml"
+version = "0.1.0"
+description = "Terminal Markup Language based on BBCode"
+authors = ["Sergey M"]
+repository = "https://github.com/s3rgeym/terml"
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.1"
+pylint = "^3.0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+terml = 'terml.cli:main'
