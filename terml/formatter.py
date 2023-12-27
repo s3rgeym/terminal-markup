@@ -61,8 +61,8 @@ class Formatter:
                 rv += self.format_node(child, esq_seq)
         return rv
 
-    def format(self, s: str, *args: Any, **kwargs: Any) -> str:
-        return self.format_node(self.parser.parse(s, *args, **kwargs))
+    def format(self, s: str) -> str:
+        return self.format_node(self.parser.parse(s))
 
 
 _formatter = Formatter()
