@@ -19,6 +19,8 @@ from terml import format
 print(format("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [magenta]Life leads to [i blue underline]Death[/i].[/magenta]"))
 ```
 
+![image](https://gist.github.com/assets/12753171/403be3f4-fdfe-4e70-b3f8-5fa4d72e44bb)
+
 ## Tags
 
 | Tag | Description |
