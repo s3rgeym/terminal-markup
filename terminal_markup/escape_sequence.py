@@ -53,6 +53,8 @@ class EscapeSequence:
     dim: bool | NotSet = NotSet
     italic: bool | NotSet = NotSet
     underline: bool | NotSet = NotSet
+    blink: bool | NotSet = NotSet
+    reverse: bool | NotSet = NotSet
     color: str | RGB | NotSet = NotSet
     background: str | RGB | NotSet = NotSet
     CSI: ClassVar[str] = "\x1b["
