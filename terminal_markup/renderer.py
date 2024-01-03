@@ -39,7 +39,14 @@ class MarkupRenderer:
         rv = EscapeSequence(**rv)
         # apply attributes
         attr_set = set(node.attrs)
-        style_attributes = {"bold", "dim", "italic", "underline", "blink", "reversed"}
+        style_attributes = {
+            "bold",
+            "dim",
+            "italic",
+            "underline",
+            "blink",
+            "reversed",
+        }
         for x in attr_set & style_attributes:
             setattr(
                 rv,

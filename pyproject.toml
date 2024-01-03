@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "terminal-markup"
-version = "0.2.5"
+version = "0.2.6"
 description = "Render Markup to Terminal"
 authors = ["Sergey M"]
 repository = "https://github.com/s3rgeym/terminal-markup"
