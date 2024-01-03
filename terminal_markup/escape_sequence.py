@@ -41,8 +41,8 @@ assert Color("Red") == Color(Color.RED) == Color.RED
 
 TextStyle = CaseInsensetiveEnum(
     "TextStyle",
-    ["BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK", "RBLINK", "REVERSE"],
-    start=1,
+    ["RESET", "BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK", "RBLINK", "REVERSED"],
+    start=0,
 )
 
 
@@ -54,13 +54,13 @@ class EscapeSequence:
     italic: bool | NotSet = NotSet
     underline: bool | NotSet = NotSet
     blink: bool | NotSet = NotSet
-    reverse: bool | NotSet = NotSet
+    reversed: bool | NotSet = NotSet
     color: str | RGB | NotSet = NotSet
     background: str | RGB | NotSet = NotSet
     CSI: ClassVar[str] = "\x1b["
 
     def gen_sequence(self) -> Iterable[int]:
-        for x in ["bold", "dim", "italic", "underline", "blink", "reverse"]:
+        for x in ["bold", "dim", "italic", "underline", "blink", "reversed"]:
             val = getattr(self, x)
             if val is not NotSet and val:
                 yield TextStyle(x).value
@@ -84,7 +84,7 @@ class EscapeSequence:
 
     def apply(self, s: str) -> str:
         if seq := ";".join(map(str, self.gen_sequence())):
-            return f"{self.CSI}{seq}m{s}{self.CSI}m"
+            return f"{self.CSI}{seq}m{s}{self.CSI}0m"
         return s
 
     def extend(self, other: EscapeSequence) -> EscapeSequence:
