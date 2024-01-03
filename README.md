@@ -1,8 +1,8 @@
 # terminal-markup
 
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/terml)]() [![PyPI - Version](https://img.shields.io/pypi/v/terml)]() [![Total Downloads](https://static.pepy.tech/badge/terminal-markup)]()
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/terminal-markup)]() [![PyPI - Version](https://img.shields.io/pypi/v/terminal-markup)]() [![Total Downloads](https://static.pepy.tech/badge/terminal-markup)]()
 
-Converts Markup to ANSI Escape Codes.
+Converts Markup to Terminal ANSI Escape Codes.
 
 Inspired by [tml](https://github.com/liamg/tml).
 
