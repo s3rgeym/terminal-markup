@@ -43,12 +43,12 @@ class RootNode(TagNode):
 
 
 @dataclass
-class ParseError(Exception):
+class MarkupError(Exception):
     message: str
     pos: int
 
     def __str__(self) -> str:
-        return f"parse error at {self.pos} - {self.message}"
+        return f"error at offset position {self.pos}: {self.message}"
 
 
 @dataclass
@@ -94,7 +94,7 @@ class MarkupParser:
         return False
 
     def error(self, message: str) -> None:
-        raise ParseError(message=message, pos=self.pos)
+        raise MarkupError(message=message, pos=self.pos)
 
     @property
     def eof(self) -> bool:

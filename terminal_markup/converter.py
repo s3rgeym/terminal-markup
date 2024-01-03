@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import KW_ONLY, dataclass, field
 
-from .escape_codes import Color, EscapeSequence
+from .escape_sequence import Color, EscapeSequence
 from .markup import MarkupParser, TagNode, TextNode
 
 _COLOR_NAMES = set(map(str.lower, Color._member_names_))
