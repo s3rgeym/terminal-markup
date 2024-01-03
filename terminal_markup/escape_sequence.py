@@ -41,7 +41,7 @@ assert Color("Red") == Color(Color.RED) == Color.RED
 
 TextStyle = CaseInsensetiveEnum(
     "TextStyle",
-    ["BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK"],
+    ["BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK", "RBLINK", "REVERSE"],
     start=1,
 )
 
@@ -58,11 +58,11 @@ class EscapeSequence:
     CSI: ClassVar[str] = "\x1b["
 
     def gen_sequence(self) -> Iterable[int]:
-        for x in ["bold", "dim", "italic", "underline"]:
+        for x in ["bold", "dim", "italic", "underline", "blink", "reverse"]:
             val = getattr(self, x)
             if val is not NotSet and val:
                 yield TextStyle(x).value
-        for color, first_code in [
+        for color, start_code in [
             (self.color, 38),
             (self.background, 48),
         ]:
@@ -71,12 +71,12 @@ class EscapeSequence:
             if isinstance(color, str):
                 color = RGB.from_hex(color) or color
             if isinstance(color, RGB):
-                yield first_code  # включаем расширенный цветовой режим
+                yield start_code  # включаем расширенный цветовой режим
                 yield 2  # указываем что используется 24-bit
                 yield from color
                 continue
             try:
-                yield from [first_code, 5, Color(color).value]
+                yield from [start_code, 5, Color(color).value]
             except ValueError:
                 pass
 
