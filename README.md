@@ -26,7 +26,7 @@ After install you can use comand `terminal-markup`.
 ```python
 from terminal_markup import convert
 
-print(convert("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [magenta]Life leads to [i blue underline]Death[/i].[/magenta]"))
+print(convert("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [purple]Life leads to [i blue underline]Death[/i].[/purple]"))
 ```
 
 ![image](https://github.com/s3rgeym/terminal-markup/assets/12753171/b3681eff-dff3-4964-a6fe-0329a4829156)
@@ -35,8 +35,8 @@ print(convert("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [magen
 
 | Tag | Description |
 | --- | --- |
-| `b` | Bold text |
-| `i` | Italic text |
+| `b`, `bold` | Bold text |
+| `i`, `em` | Italic text |
 | `u` | Underline text |
 | `[color=<color>]`, `<color name>` | Set foreground color |
 
@@ -54,4 +54,4 @@ Unknown attributes are ignored.
 
 ## Colors
 
-Color name: `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`. Also supported HEX-codes like `#deadbeef`.
+Color names: black, maroon, green, olive, navy, purple, teal, silver, grey, red, lime, yellow, blue, fuchsia, aqua, white (first 16 colors from [here](https://ss64.com/bash/syntax-colors.html)). Also supported HEX-codes like `#deadbeef`.
