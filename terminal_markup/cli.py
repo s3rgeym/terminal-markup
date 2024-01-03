@@ -1,10 +1,10 @@
 from argparse import ArgumentParser
 
-from .converter import convert
+from .renderer import render
 
 
 def main() -> None:
     parser = ArgumentParser()
-    parser.add_argument("input", help="input string")
+    parser.add_argument("text", help="Text goes here")
     args = parser.parse_args()
-    print(convert(args.input))
+    print(render(args.text))
