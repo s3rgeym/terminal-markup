@@ -41,7 +41,16 @@ assert Color("Red") == Color(Color.RED) == Color.RED
 
 TextStyle = CaseInsensetiveEnum(
     "TextStyle",
-    ["RESET", "BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK", "RBLINK", "REVERSED"],
+    [
+        "RESET",
+        "BOLD",
+        "DIM",
+        "ITALIC",
+        "UNDERLINE",
+        "BLINK",
+        "RBLINK",
+        "REVERSED",
+    ],
     start=0,
 )
 
