@@ -9,7 +9,7 @@ _COLOR_NAMES = set(map(str.lower, Color._member_names_))
 
 
 @dataclass
-class MarkupConverter:
+class Markup2Term:
     _: KW_ONLY
     tag_rules: dict = field(
         default_factory=lambda: {
@@ -29,7 +29,7 @@ class MarkupConverter:
     parser: MarkupParser = field(default_factory=MarkupParser)
 
     def _make_escape_sequence(self, node: TagNode) -> EscapeSequence:
-        rv = self.tag_rules.get(node.name, self.tag_rules["*"])
+        rv = self.tag_rules.get(node.name, self.tag_rules.get("*"))
         if callable(rv):
             rv = rv(node)
         rv = EscapeSequence(**rv)
@@ -74,6 +74,6 @@ class MarkupConverter:
         return self.convert_node(self.parser.parse(s))
 
 
-_conv = MarkupConverter()
+_conv = Markup2Term()
 convert = _conv.convert
 escape = _conv.escape
