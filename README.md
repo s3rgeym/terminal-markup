@@ -8,7 +8,7 @@ Inspired by [tml](https://github.com/liamg/tml).
 
 Pros:
 
-* Faster than alterntavies like `rich`.
+* Faster than alternatvies like `rich`.
 * Supports background color and hex-colors.
 * Null-dependency.
 
