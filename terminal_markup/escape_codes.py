@@ -1,21 +1,17 @@
 from __future__ import annotations
 
 import string
-from dataclasses import KW_ONLY, MISSING, Field, dataclass
+from dataclasses import KW_ONLY, MISSING, Field, dataclass, fields
 from enum import Enum
 from typing import ClassVar, Iterable, NamedTuple
 
+from .utils.color import RGB
+from .utils.enum import CaseInsensetiveEnum
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 # https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
 # https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 # print('\x1b[38:5:1mtest\x1b[0m')
-class CaseInsensetiveEnum(Enum):
-    @classmethod
-    def _missing_(cls, value: object):
-        for member in cls:
-            if member.name.lower() == value.lower():
-                return member
 
 
 class EscapeCode(CaseInsensetiveEnum):
@@ -24,53 +20,26 @@ class EscapeCode(CaseInsensetiveEnum):
 
 
 # TODO: можно использовать 256 цветов
-# https://tintin.mudhalla.net/info/256color/
 Color = EscapeCode(
     "olor",
     ["BLACK", "RED", "GREEN", "YELLOW", "BLUE", "MAGENTA", "CYAN", "WHITE"],
     start=0,
 )
 
-assert Color("red") == Color(Color.RED) == Color.RED
+assert Color("Red") == Color(Color.RED) == Color.RED
 
 TextStyle = EscapeCode(
     "TextStyle",
-    ["NORMAL", "BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK"],
-    start=0,
+    ["BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK"],
+    start=1,
 )
-
-
-class RGB(NamedTuple):
-    r: int
-    g: int
-    b: int
-
-    @classmethod
-    def from_hex(cls, h: str) -> RGB | None:
-        """
-        >>> RGB.from_hex('#7ff000')
-        RGB(r=127, g=240, b=0)
-        """
-        if cls.is_hex(h):
-            return cls.from_int(int(h[1:], 16))
-
-    @classmethod
-    def from_int(cls, v: int) -> RGB:
-        return cls((v >> 16) & 255, (v >> 8) & 255, v & 255)
-
-    @staticmethod
-    def is_hex(s: str) -> bool:
-        return (
-            s.startswith("#")
-            and len(s) == 7
-            and all(c in string.hexdigits for c in s[1:])
-        )
 
 
 @dataclass
 class EscapeSequence:
     _: KW_ONLY
     bold: bool = False
+    dim: bool = False
     italic: bool = False
     underline: bool = False
     color: str | RGB | None = None
@@ -78,7 +47,7 @@ class EscapeSequence:
     CSI: ClassVar[str] = "\x1b["
 
     def gen_sequence(self) -> Iterable[int]:
-        for x in ["bold", "italic", "underline"]:
+        for x in ["bold", "dim", "italic", "underline"]:
             if getattr(self, x):
                 yield TextStyle(x).value
         for color, color_offset in [
@@ -105,17 +74,20 @@ class EscapeSequence:
         return s
 
     def extend(self, other: EscapeSequence) -> EscapeSequence:
+        # TODO: переписать
         d = self.__dict__.copy()
         # Берем поля other, чьи значения отличны от дефолтных
-        for name, field in self.__dataclass_fields__.items():
-            if name not in other.__dict__:
+        field: Field
+        for field in fields(self.__class__):
+            # Нужно ли?
+            if field.name not in other.__dict__:
                 continue
             if field.default is not MISSING:
                 default_value = field.default
             else:
                 default_value = field.default_factory()
-            if other.__dict__[name] != default_value:
-                d[name] = other.__dict__[name]
+            if other.__dict__[field.name] != default_value:
+                d[field.name] = other.__dict__[field.name]
         return EscapeSequence(**d)
 
     # a | b
