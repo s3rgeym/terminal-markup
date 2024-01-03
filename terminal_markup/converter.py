@@ -38,7 +38,7 @@ class Markup2Term:
         style_attributes = {"bold", "dim", "italic", "underline"}
         for x in attr_set & style_attributes:
             setattr(
-                rv, x, node.attrs[x].lower() not in ["false", "off", "no", "0"]
+                rv, x, node.attrs[x].strip().lower() not in ["false", "off", "no", "0"]
             )
         color_attributes = {"color", "background"}
         for x in attr_set & color_attributes:
