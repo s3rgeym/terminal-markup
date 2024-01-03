@@ -26,6 +26,7 @@ After install you can use comand `terminal-markup`.
 ```python
 from terminal_markup import render
 
+# let's render bricks
 print(render("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [purple]Life leads to [i blue underline]Death[/i].[/purple]"))
 ```
 
