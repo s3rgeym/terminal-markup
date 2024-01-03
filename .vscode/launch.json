@@ -10,7 +10,7 @@
       "request": "launch",
       "module": "terminal_markup",
       "justMyCode": true,
-      "args": ["[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [magenta]Life leads to [i blue underline]Death[/i].[/magenta]"],
+      "args": ["[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [purple]Life leads to [i blue underline]Death[/i].[/purple]"],
     }
   ]
 }

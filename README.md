@@ -38,6 +38,9 @@ print(render("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [purple
 | `b`, `bold` | Bold text |
 | `i`, `em` | Italic text |
 | `u` | Underline text |
+| `blink` | -- |
+| `dim` | Dimmed color |
+| `rev` | Reversed foreground and background colors |
 | `[color=<color>]`, `<color name>` | Set foreground color |
 
 Non-existent tags do not cause errors.
@@ -48,10 +51,14 @@ Non-existent tags do not cause errors.
 | -- | -- |
 | `<color name>`, `color=<color>` | Set foreground color |
 | `background=<color>` | Set background color |
-| `{bold\|italic\|underline}[={no\|off\|false\|0\|...}]` | Set text style |
+| `{bold\|italic\|underline\|dim\|reversed\|blink}[={no\|off\|false\|0\|...}]` | Set style |
 
 Unknown attributes are ignored.
 
 ## Colors
 
 Color names: black, maroon, green, olive, navy, purple, teal, silver, grey, red, lime, yellow, blue, fuchsia, aqua, white (first 16 colors from [here](https://ss64.com/bash/syntax-colors.html)). Also supported HEX-codes like `#deadbeef`.
+
+## Case Insensetive
+
+Tag names, attributes and color names are case insensetive.
