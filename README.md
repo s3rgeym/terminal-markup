@@ -60,7 +60,7 @@ Unknown attributes are ignored.
 
 ## Colors
 
-Color names: black, maroon, green, olive, navy, purple, teal, silver, grey, red, lime, yellow, blue, fuchsia, aqua, white (first 16 colors from [here](https://ss64.com/bash/syntax-colors.html)). Also supported HEX-codes like `#deadbeef`.
+Color names: black, maroon, green, olive, navy, purple, teal, silver, grey, red, lime, yellow, blue, fuchsia, aqua, white (first 16 colors from [here](https://ss64.com/bash/syntax-colors.html)). Also supported HEX-codes like `#87CEEB`.
 
 ## Case Insensetive
 
