@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .markup_converter import convert
+from .converter import convert
 
 
 def main() -> None:
