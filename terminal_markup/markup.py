@@ -53,8 +53,7 @@ class MarkupError(Exception):
 
 @dataclass
 class MarkupParser:
-    """BB Code Parser
-    See: <https://www.bbcode.org/reference.php>"""
+    """<https://www.bbcode.org/reference.php>"""
 
     _: KW_ONLY
     start_tag: str = "["

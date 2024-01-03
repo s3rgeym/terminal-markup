@@ -8,14 +8,13 @@ from .utils.color import RGB
 from .utils.constant import NotSet
 from .utils.enum import CaseInsensetiveEnum
 
-
-class EscapeCode(CaseInsensetiveEnum):
-    def __str__(self) -> str:
-        return str(self.value)
+# class EscapeCode(CaseInsensetiveEnum):
+#     def __str__(self) -> str:
+#         return str(self.value)
 
 
 # https://ss64.com/bash/syntax-colors.html
-Color = EscapeCode(
+Color = CaseInsensetiveEnum(
     "Color",
     [
         "BLACK",
@@ -40,7 +39,7 @@ Color = EscapeCode(
 
 assert Color("Red") == Color(Color.RED) == Color.RED
 
-TextStyle = EscapeCode(
+TextStyle = CaseInsensetiveEnum(
     "TextStyle",
     ["BOLD", "DIM", "ITALIC", "UNDERLINE", "BLINK"],
     start=1,

@@ -9,7 +9,9 @@ _COLOR_NAMES = set(map(str.lower, Color._member_names_))
 
 
 @dataclass
-class Markup2Term:
+class MarkupRenderer:
+    """Render Markup to Terminal"""
+
     _: KW_ONLY
     tag_rules: dict = field(
         default_factory=lambda: {
@@ -38,20 +40,21 @@ class Markup2Term:
         style_attributes = {"bold", "dim", "italic", "underline"}
         for x in attr_set & style_attributes:
             setattr(
-                rv, x, node.attrs[x].strip().lower() not in ["false", "off", "no", "0"]
+                rv,
+                x,
+                node.attrs[x].strip().lower()
+                not in ["false", "off", "no", "0"],
             )
         color_attributes = {"color", "background"}
         for x in attr_set & color_attributes:
             setattr(rv, x, node.attrs[x])
-        if v := (attr_set & _COLOR_NAMES) - (style_attributes | color_attributes):
+        if v := (attr_set & _COLOR_NAMES) - (
+            style_attributes | color_attributes
+        ):
             *_, rv.color = v
         return rv
 
-    def escape(self, s: str) -> str:
-        """escape start tag"""
-        return self.parser.escape(s)
-
-    def convert_node(
+    def render_node(
         self,
         node: TagNode,
         esq_seq: EscapeSequence | None = None,
@@ -67,13 +70,13 @@ class Markup2Term:
             if isinstance(child, TextNode):
                 rv += esq_seq.apply(child) if esq_seq else child
             else:
-                rv += self.convert_node(child, esq_seq)
+                rv += self.render_node(child, esq_seq)
         return rv
 
-    def convert(self, s: str) -> str:
-        return self.convert_node(self.parser.parse(s))
+    def render(self, s: str) -> str:
+        return self.render_node(self.parser.parse(s))
 
 
-_conv = Markup2Term()
-convert = _conv.convert
-escape = _conv.escape
+_renderer = MarkupRenderer()
+render = _renderer.render
+# del _renderer
