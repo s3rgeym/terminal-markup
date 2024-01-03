@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "terml"
-version = "0.1.0"
-description = "Terminal Markup Language based on BBCode"
+name = "terminal-markup"
+version = "0.2.0"
+description = "Converts Markup to ANSI Escape Codes"
 authors = ["Sergey M"]
-repository = "https://github.com/s3rgeym/terml"
+repository = "https://github.com/s3rgeym/terminal-markup"
 license = "MIT"
 readme = "README.md"
 
@@ -19,4 +19,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-terml = 'terml.cli:main'
+terminal-markup = 'terminal_markup.cli:main'

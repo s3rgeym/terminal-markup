@@ -52,7 +52,7 @@ class ParseError(Exception):
 
 
 @dataclass
-class Parser:
+class MarkupParser:
     """BB Code Parser
     See: <https://www.bbcode.org/reference.php>"""
 
@@ -126,7 +126,7 @@ class Parser:
         self.cur = node
         # [color=red]...[/color]
         if self.consume("="):
-            node["#value"] = self.parse_attr_value()
+            node["value"] = self.parse_attr_value()
         # [b red bg=blue]...[/b]
         while self.consume_whitespace():
             attr = self.parse_name()
