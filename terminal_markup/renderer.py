@@ -21,6 +21,8 @@ class MarkupRenderer:
             "i": {"italic": True},
             "em": {"italic": True},
             "u": {"underline": True},
+            "blink": {"blink": True},
+            "rev": {"reversed": True},
             "color": lambda node: {"color": node.attrs["value"]},
             # red, green and etc
             "*": lambda node: {"color": node.name}
@@ -37,7 +39,7 @@ class MarkupRenderer:
         rv = EscapeSequence(**rv)
         # apply attributes
         attr_set = set(node.attrs)
-        style_attributes = {"bold", "dim", "italic", "underline"}
+        style_attributes = {"bold", "dim", "italic", "underline", "blink", "reversed"}
         for x in attr_set & style_attributes:
             setattr(
                 rv,
