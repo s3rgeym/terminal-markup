@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "terminal-markup"
 version = "0.2.0"
-description = "Converts Markup to ANSI Escape Codes"
+description = "Converts Markup to Terminal ANSI Escape Codes"
 authors = ["Sergey M"]
 repository = "https://github.com/s3rgeym/terminal-markup"
 license = "MIT"
