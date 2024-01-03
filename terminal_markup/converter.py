@@ -43,7 +43,7 @@ class Markup2Term:
         color_attributes = {"color", "background"}
         for x in attr_set & color_attributes:
             setattr(rv, x, node.attrs[x])
-        if v := attr_set & _COLOR_NAMES - (style_attributes | color_attributes):
+        if v := (attr_set & _COLOR_NAMES) - (style_attributes | color_attributes):
             *_, rv.color = v
         return rv
 
