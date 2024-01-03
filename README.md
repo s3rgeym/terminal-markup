@@ -31,6 +31,8 @@ print(render("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [purple
 
 ![image](https://github.com/s3rgeym/terminal-markup/assets/12753171/b3681eff-dff3-4964-a6fe-0329a4829156)
 
+> `\[` - escaped `[`.
+
 ## Tags
 
 | Tag | Description |
