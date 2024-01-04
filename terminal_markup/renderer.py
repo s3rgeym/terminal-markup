@@ -13,6 +13,8 @@ class MarkupRenderer:
     """Render Markup to Terminal"""
 
     _: KW_ONLY
+
+    # Оно тут вроде и не уместно, но и куда засунуть лучше я не знаю
     tag_rules: dict = field(
         default_factory=lambda: {
             "b": {"bold": True},
@@ -30,14 +32,10 @@ class MarkupRenderer:
             else {},
         }
     )
+
     parser: MarkupParser = field(default_factory=MarkupParser)
 
-    def _make_escape_sequence(self, node: TagNode) -> EscapeSequence:
-        rv = self.tag_rules.get(node.name, self.tag_rules.get("*"))
-        if callable(rv):
-            rv = rv(node)
-        rv = EscapeSequence(**rv)
-        # apply attributes
+    def _apply_attributes(self, node: TagNode, seq: EscapeSequence) -> None:
         attr_set = set(node.attrs)
         style_attributes = {
             "bold",
@@ -49,37 +47,44 @@ class MarkupRenderer:
         }
         for x in attr_set & style_attributes:
             setattr(
-                rv,
+                seq,
                 x,
                 node.attrs[x].strip().lower()
                 not in ["false", "off", "no", "0"],
             )
         color_attributes = {"color", "background"}
         for x in attr_set & color_attributes:
-            setattr(rv, x, node.attrs[x])
+            setattr(seq, x, node.attrs[x])
         if v := (attr_set & _COLOR_NAMES) - (
             style_attributes | color_attributes
         ):
-            *_, rv.color = v
+            *_, seq.color = v
+
+    def _make_escape_sequence(self, node: TagNode) -> EscapeSequence:
+        rv = self.tag_rules.get(node.name, self.tag_rules.get("*"))
+        if callable(rv):
+            rv = rv(node)
+        rv = EscapeSequence(**rv)
+        self._apply_attributes(node, rv)
         return rv
 
     def render_node(
         self,
         node: TagNode,
-        esq_seq: EscapeSequence | None = None,
+        seq: EscapeSequence | None = None,
     ) -> str:
         assert isinstance(node, TagNode)
-        esq_seq = (
-            esq_seq | self._make_escape_sequence(node)
-            if esq_seq
+        seq = (
+            seq | self._make_escape_sequence(node)
+            if seq
             else self._make_escape_sequence(node)
         )
         rv = ""
         for child in node.children:
             if isinstance(child, TextNode):
-                rv += esq_seq.apply(child) if esq_seq else child
+                rv += seq.apply(child) if seq else child
             else:
-                rv += self.render_node(child, esq_seq)
+                rv += self.render_node(child, seq)
         return rv
 
     def render(self, s: str) -> str:

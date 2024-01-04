@@ -9,7 +9,7 @@ Inspired by [tml](https://github.com/liamg/tml).
 Pros:
 
 * Faster than alternatvies like `rich`.
-* Supports background color and hex-colors.
+* Supports background colors and hex.
 * Null-dependency.
 
 Install:
@@ -19,7 +19,7 @@ pip install terminal-markup
 poetry add terminal-markup
 ```
 
-After install you can use comand `terminal-markup`.
+After install you can use command `terminal-markup`.
 
 ## Examples
 
@@ -31,8 +31,6 @@ print(render("[b][color=#f70000 background=yellow] WARNING [/color]:[/b] [purple
 ```
 
 ![image](https://github.com/s3rgeym/terminal-markup/assets/12753171/b3681eff-dff3-4964-a6fe-0329a4829156)
-
-> `\[` - escaped `[`.
 
 ## Tags
 
@@ -61,6 +59,10 @@ Unknown attributes are ignored.
 ## Colors
 
 Color names: black, maroon, green, olive, navy, purple, teal, silver, grey, red, lime, yellow, blue, fuchsia, aqua, white (first 16 colors from [here](https://ss64.com/bash/syntax-colors.html)). Also supported HEX-codes like `#87CEEB`.
+
+## Tags Escaping
+
+> `\[` - escaped `[`.
 
 ## Case Insensetive
 
