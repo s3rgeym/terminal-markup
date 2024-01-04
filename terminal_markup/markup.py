@@ -24,8 +24,8 @@ class TextNode(str, Node):
 @dataclass
 class TagNode(Node):
     name: str
-    attrs: dict = field(default_factory=dict, init=False)
-    children: dict = field(default_factory=list, init=False)
+    attrs: dict[str, str] = field(default_factory=dict, init=False)
+    children: list[Node] = field(default_factory=list, init=False)
 
     def __getitem__(self, key):
         return self.attrs[key]
