@@ -8,13 +8,14 @@ from .utils.color import RGB
 from .utils.constant import NotSet
 from .utils.enum import CaseInsensetiveEnum
 
-# class EscapeCode(CaseInsensetiveEnum):
-#     def __str__(self) -> str:
-#         return str(self.value)
+
+class EscapeCode(CaseInsensetiveEnum):
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 # https://ss64.com/bash/syntax-colors.html
-Color = CaseInsensetiveEnum(
+Color = EscapeCode(
     "Color",
     [
         "BLACK",
@@ -39,8 +40,8 @@ Color = CaseInsensetiveEnum(
 
 assert Color("Red") == Color(Color.RED) == Color.RED
 
-TextStyle = CaseInsensetiveEnum(
-    "TextStyle",
+Style = EscapeCode(
+    "Style",
     [
         "RESET",
         "BOLD",
@@ -68,11 +69,11 @@ class EscapeSequence:
     background: str | RGB | NotSet = NotSet
     CSI: ClassVar[str] = "\x1b["
 
-    def gen_sequence(self) -> Iterable[int]:
+    def __iter__(self) -> Iterable[int | EscapeCode]:
         for x in ["bold", "dim", "italic", "underline", "blink", "reversed"]:
             val = getattr(self, x)
             if val is not NotSet and val:
-                yield TextStyle(x).value
+                yield Style(x)
         for color, start_code in [
             (self.color, 38),
             (self.background, 48),
@@ -87,13 +88,13 @@ class EscapeSequence:
                 yield from color
                 continue
             try:
-                yield from [start_code, 5, Color(color).value]
+                yield from [start_code, 5, Color(color)]
             except ValueError:
                 pass
 
     def apply(self, s: str) -> str:
-        if seq := ";".join(map(str, self.gen_sequence())):
-            return f"{self.CSI}{seq}m{s}{self.CSI}0m"
+        if seq := ";".join(map(str, self)):
+            return f"{self.CSI}{seq}m{s}{self.CSI}{Style.RESET}m"
         return s
 
     def extend(self, other: EscapeSequence) -> EscapeSequence:
