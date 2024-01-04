@@ -4,7 +4,7 @@ import re
 from abc import ABC
 from dataclasses import KW_ONLY, dataclass, field
 from functools import cached_property
-from typing import ClassVar
+from typing import Any, ClassVar
 
 
 # @dataclass
@@ -27,10 +27,10 @@ class TagNode(Node):
     attrs: dict[str, str] = field(default_factory=dict, init=False)
     children: list[Node] = field(default_factory=list, init=False)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: Any) -> Any:
         return self.attrs[key]
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: Any, value: Any) -> Any:
         self.attrs[key] = value
 
     def append_child(self, child: Node) -> None:
